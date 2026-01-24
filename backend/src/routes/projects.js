@@ -6,14 +6,13 @@ import {
   updateProject,
   deleteProject,
 } from '../controllers/projectController.js';
-import { validateProject } from '../middleware/validate.js';
 const router = express.Router();
 
 router.use(auth);
 
-router.get('/', getProjects);
-router.post('/', validateProject, createProject);
-router.put('/:id', validateProject, updateProject);
-router.delete('/:id', deleteProject);
+router.get('/', auth, getProjects);
+router.post('/', auth, createProject);
+router.put('/:id', auth, updateProject);
+router.delete('/:id', auth, deleteProject);
 
 export default router;

@@ -1,0 +1,152 @@
+{
+  "projects": [
+    {
+      "_id": "65b100000000000000000001",
+    },
+    {
+      "_id": "65b100000000000000000002",
+    },
+    {
+      "_id": "65b100000000000000000003",
+    },
+    {
+      "_id": "65b100000000000000000004",
+    },
+    {
+      "_id": "65b100000000000000000005",
+    },
+    {
+      "_id": "65b100000000000000000006",
+    },
+    {
+      "_id": "65b100000000000000000007",
+      "name": "Hospital Management System",
+      "description": "Patient, doctor, and appointment management system."
+    },
+    {
+      "_id": "65b100000000000000000008",
+      "name": "Video Calling App",
+      "description": "One-to-one and group video calling application."
+    },
+    {
+      "_id": "65b100000000000000000009",
+    },
+    {
+      "_id": "65b100000000000000000010",
+    }
+  ],
+  "tasks": [
+    {
+      "title": "Setup project structure",
+      "description": "Initialize backend and frontend folder structure.",
+      "status": "Done",
+      "projectId": "65b100000000000000000001"
+    },
+    {
+      "title": "Configure Socket.IO",
+      "description": "Set up Socket.IO server and client connection.",
+      "status": "Done",
+      "projectId": "65b100000000000000000001"
+    },
+    {
+      "title": "User authentication",
+      "description": "Implement JWT-based authentication.",
+      "status": "In Progress",
+      "projectId": "65b100000000000000000001"
+    },
+    {
+      "title": "One-to-one chat",
+      "description": "Enable real-time private messaging.",
+      "status": "In Progress",
+      "projectId": "65b100000000000000000001"
+    },
+    {
+      "title": "Group chat",
+      "description": "Allow multiple users in a chat room.",
+      "status": "Todo",
+      "projectId": "65b100000000000000000001"
+    },
+    {
+      "title": "Media upload",
+      "description": "Send images and videos in chat.",
+      "status": "Todo",
+      "projectId": "65b100000000000000000001"
+    },
+
+    {
+      "title": "Create project CRUD",
+      "description": "Implement create, update, delete project APIs.",
+      "status": "Done",
+      "projectId": "65b100000000000000000002"
+    },
+    {
+      "title": "Task schema",
+      "description": "Define mongoose schema for tasks.",
+      "status": "Done",
+      "projectId": "65b100000000000000000002"
+    },
+    {
+      "title": "Add task APIs",
+      "description": "Create APIs for task operations.",
+      "status": "In Progress",
+      "projectId": "65b100000000000000000002"
+    },
+    {
+      "title": "Status filtering",
+      "description": "Filter tasks by status.",
+      "status": "Todo",
+      "projectId": "65b100000000000000000002"
+    },
+    {
+      "title": "Kanban UI",
+      "description": "Display tasks in Kanban board format.",
+      "status": "Todo",
+      "projectId": "65b100000000000000000002"
+    },
+    {
+      "title": "Deploy app",
+      "description": "Deploy task manager to production.",
+      "status": "Todo",
+      "projectId": "65b100000000000000000002"
+    },
+
+    {
+      "title": "Product listing",
+      "description": "Show all products with pagination.",
+      "status": "Done",
+      "projectId": "65b100000000000000000003"
+    },
+    {
+      "title": "Product details page",
+      "description": "Display detailed product info.",
+      "status": "Done",
+      "projectId": "65b100000000000000000003"
+    },
+    {
+      "title": "Cart functionality",
+      "description": "Add/remove products from cart.",
+      "status": "In Progress",
+      "projectId": "65b100000000000000000003"
+    },
+    {
+      "title": "Checkout flow",
+      "description": "Implement checkout process.",
+      "status": "Todo",
+      "projectId": "65b100000000000000000003"
+    },
+    {
+      "title": "Payment gateway",
+      "description": "Integrate online payment system.",
+      "status": "Todo",
+      "projectId": "65b100000000000000000003"
+    },
+    {
+      "title": "Admin dashboard",
+      "description": "Manage products and orders.",
+      "status": "Todo",
+      "projectId": "65b100000000000000000003"
+    }
+
+
+  ]
+}

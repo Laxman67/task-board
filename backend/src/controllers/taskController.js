@@ -1,8 +1,9 @@
-import {  validationResult } from 'express-validator';
+
 import Task from '../models/Task.js';
 import Project from '../models/Project.js';
+import { taskSchema } from '../middleware/validate.js';
 
-export const getTasks = async (req, res, next) => {
+export const getTasksByProjectId = async (req, res, next) => {
   try {
     const { projectId } = req.params;
 
@@ -12,31 +13,36 @@ export const getTasks = async (req, res, next) => {
     });
 
     if (!project) {
-      const error = new Error('Project not found');
-      error.statusCode = 404;
-      throw error;
+      return res.status(404).json({
+        success: false,
+        message: 'Project not found'
+      })
     }
 
     const tasks = await Task.find({ projectId })
       .sort({ createdAt: -1 });
 
-    res.json({
+    res.status(200).json({
       success: true,
       data: tasks
     });
   } catch (error) {
-    next(error);
+    return res.status(500).json({
+      success: false,
+      message: 'Internal server error'
+    })
   }
 };
 
-export const createTask = async (req, res, next) => {
+export const createTaskByProjectId = async (req, res, next) => {
   try {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      const error = new Error('Validation failed');
-      error.statusCode = 400;
-      error.errors = errors.array();
-      throw error;
+    const { error } = taskSchema.validate(req.body);
+    if (error) {
+      return res.status(400).json({
+        success: false,
+        message: 'Validation failed',
+        errors: error.details
+      })
     }
 
     const { title, description, status } = req.body;
@@ -48,9 +54,10 @@ export const createTask = async (req, res, next) => {
     });
 
     if (!project) {
-      const error = new Error('Project not found');
-      error.statusCode = 404;
-      throw error;
+      return res.status(404).json({
+        success: false,
+        message: 'Project not found'
+      })
     }
 
     const task = new Task({
@@ -68,18 +75,22 @@ export const createTask = async (req, res, next) => {
       data: task
     });
   } catch (error) {
-    next(error);
+    return res.status(500).json({
+      success: false,
+      message: 'Internal server error'
+    })
   }
 };
 
 export const updateTask = async (req, res, next) => {
   try {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      const error = new Error('Validation failed');
-      error.statusCode = 400;
-      error.errors = errors.array();
-      throw error;
+    const { error } = taskSchema.validate(req.body);
+    if (error) {
+      return res.status(400).json({
+        success: false,
+        message: 'Validation failed',
+        errors: error.details
+      })
     }
 
     const { title, description, status } = req.body;
@@ -111,7 +122,10 @@ export const updateTask = async (req, res, next) => {
       data: updatedTask
     });
   } catch (error) {
-    next(error);
+    return res.status(500).json({
+      success: false,
+      message: 'Internal server error'
+    })
   }
 };
 
@@ -140,7 +154,10 @@ export const deleteTask = async (req, res, next) => {
       message: 'Task deleted successfully'
     });
   } catch (error) {
-    next(error);
+    return res.status(500).json({
+      success: false,
+      message: 'Internal server error'
+    })
   }
 };
 

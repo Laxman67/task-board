@@ -1,22 +1,89 @@
-import { body } from 'express-validator';
+import Joi from 'joi';
 
-export const validateRegister = [
-  body('email').isEmail().normalizeEmail(),
-  body('password').isLength({ min: 6 })
-];
+/* ======================
+   Register Validation
+====================== */
+export const registerSchema = Joi.object({
+  firstname: Joi.string()
+    .min(3)
+    .required()
+    .messages({
+      'string.min': 'First name must be at least 3 characters',
+      'any.required': 'First name is required'
+    }),
 
-export const validateLogin = [
-  body('email').isEmail().normalizeEmail(),
-  body('password').notEmpty()
-];
+  lastname: Joi.string()
+    .min(3)
+    .required()
+    .messages({
+      'string.min': 'Last name must be at least 3 characters',
+      'any.required': 'Last name is required'
+    }),
 
-export const validateProject = [
-  body('name').trim().isLength({ min: 1, max: 100 }),
-  body('description').optional().trim().isLength({ max: 500 })
-];
+  email: Joi.string()
+    .email()
+    .required()
+    .messages({
+      'string.email': 'Invalid email format',
+      'any.required': 'Email is required'
+    }),
 
-export const validateTask = [
-  body('title').trim().isLength({ min: 1, max: 200 }),
-  body('description').optional().trim().isLength({ max: 1000 }),
-  body('status').optional().isIn(['Todo', 'In Progress', 'Done'])
-];
+  password: Joi.string()
+    .min(6)
+    .required()
+    .messages({
+      'string.min': 'Password must be at least 6 characters',
+      'any.required': 'Password is required'
+    })
+});
+
+
+/* ======================
+   Login Validation
+====================== */
+export const loginSchema = Joi.object({
+  email: Joi.string()
+    .email()
+    .required(),
+
+  password: Joi.string()
+    .required()
+});
+
+
+/* ======================
+   Project Validation
+====================== */
+export const projectSchema = Joi.object({
+  name: Joi.string()
+    .trim()
+    .min(1)
+    .max(100)
+    .required(),
+
+  description: Joi.string()
+    .trim()
+    .max(500)
+    .optional().required()
+});
+
+
+/* ======================
+   Task Validation
+====================== */
+export const taskSchema = Joi.object({
+  title: Joi.string()
+    .trim()
+    .min(1)
+    .max(200)
+    .required(),
+
+  description: Joi.string()
+    .trim()
+    .max(1000)
+    .optional(),
+
+  status: Joi.string()
+    .valid('Todo', 'In Progress', 'Done')
+    .optional()
+});

@@ -1,29 +1,34 @@
-import {  validationResult } from 'express-validator';
 import Project from '../models/Project.js';
 import Task from '../models/Task.js';
+import { projectSchema } from '../middleware/validate.js';
 
 export const getProjects = async (req, res, next) => {
   try {
     const projects = await Project.find({ userId: req.user._id })
       .sort({ createdAt: -1 });
 
-    res.json({
+    res.status(200).json({
       success: true,
       data: projects
     });
   } catch (error) {
-    next(error);
+    return res.status(500).json({
+      success: false,
+      message: 'Internal server error'
+    })
   }
 };
 
 export const createProject = async (req, res, next) => {
   try {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      const error = new Error('Validation failed');
-      error.statusCode = 400;
-      error.errors = errors.array();
-      throw error;
+    const { error } = projectSchema.validate(req.body);
+
+    if (error) {
+      return res.status(400).json({
+        success: false,
+        message: 'Validation failed',
+        errors: error.details
+      })
     }
 
     const { name, description } = req.body;
@@ -42,19 +47,16 @@ export const createProject = async (req, res, next) => {
       data: project
     });
   } catch (error) {
-    next(error);
+    return res.status(500).json({
+      success: false,
+      message: 'Internal server error'
+    })
   }
 };
 
 export const updateProject = async (req, res, next) => {
   try {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      const error = new Error('Validation failed');
-      error.statusCode = 400;
-      error.errors = errors.array();
-      throw error;
-    }
+
 
     const { name, description } = req.body;
     const { id } = req.params;
@@ -66,9 +68,10 @@ export const updateProject = async (req, res, next) => {
     );
 
     if (!project) {
-      const error = new Error('Project not found');
-      error.statusCode = 404;
-      throw error;
+      return res.status(404).json({
+        success: false,
+        message: 'Project not found or access denied'
+      })
     }
 
     res.json({
@@ -77,7 +80,10 @@ export const updateProject = async (req, res, next) => {
       data: project
     });
   } catch (error) {
-    next(error);
+    return res.status(500).json({
+      success: false,
+      message: 'Internal server error'
+    })
   }
 };
 
@@ -91,9 +97,10 @@ export const deleteProject = async (req, res, next) => {
     });
 
     if (!project) {
-      const error = new Error('Project not found');
-      error.statusCode = 404;
-      throw error;
+      return res.status(404).json({
+        success: false,
+        message: 'Project not found or access denied'
+      })
     }
 
     await Task.deleteMany({ projectId: id });
@@ -103,7 +110,10 @@ export const deleteProject = async (req, res, next) => {
       message: 'Project and its tasks deleted successfully'
     });
   } catch (error) {
-    next(error);
+    return res.status(500).json({
+      success: false,
+      message: 'Internal server error'
+    })
   }
 };
 

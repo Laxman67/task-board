@@ -1,16 +1,19 @@
-import mongoose from 'mongoose';
+import { Schema, model } from 'mongoose';
 
-const taskSchema = new mongoose.Schema({
+const taskSchema = new Schema({
   title: {
     type: String,
     required: true,
     trim: true,
-    maxlength: 200
+    maxlength: 200,
+    minlength: 1
+
   },
   description: {
     type: String,
     trim: true,
-    maxlength: 1000
+    maxlength: 1000,
+    required: true
   },
   status: {
     type: String,
@@ -18,12 +21,13 @@ const taskSchema = new mongoose.Schema({
     default: 'Todo'
   },
   projectId: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'Project',
     required: true
   }
 }, {
   timestamps: true
 });
+const Task = model('Task', taskSchema);
 
-export default mongoose.model('Task', taskSchema);
+export default Task;

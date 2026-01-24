@@ -3,35 +3,48 @@ import User from '../models/User.js';
 
 const auth = async (req, res, next) => {
   try {
-    const token = req.header('Authorization')?.replace('Bearer ', '');
+
+
+    const token = req.cookies.token;
+
 
     if (!token) {
-      const error = new Error('Access denied. No token provided.');
-      error.statusCode = 401;
-      throw error;
+
+      return res.status(401).json({
+        success: false,
+        message: 'Access denied. No token provided.'
+      })
     }
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'fallback_secret');
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const user = await User.findById(decoded.userId).select('-password');
 
     if (!user) {
-      const error = new Error('Token is valid but user not found.');
-      error.statusCode = 401;
-      throw error;
+      return res.status(401).json({
+        success: false,
+        message: 'Token is valid but user not found.'
+      })
     }
 
     req.user = user;
     next();
   } catch (error) {
     if (error.name === 'JsonWebTokenError') {
-      error.statusCode = 401;
-      error.message = 'Invalid token.';
+      return res.status(401).json({
+        success: false,
+        message: 'Invalid token.'
+      })
     } else if (error.name === 'TokenExpiredError') {
-      error.statusCode = 401;
-      error.message = 'Token expired.';
+      return res.status(401).json({
+        success: false,
+        message: 'Token expired.'
+      })
     }
 
-    next(error);
+    return res.status(500).json({
+      success: false,
+      message: 'Internal server error'
+    })
   }
 };
 
