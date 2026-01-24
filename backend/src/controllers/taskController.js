@@ -1,8 +1,8 @@
-import { body, validationResult } from 'express-validator';
+import {  validationResult } from 'express-validator';
 import Task from '../models/Task.js';
 import Project from '../models/Project.js';
 
-const getTasks = async (req, res, next) => {
+export const getTasks = async (req, res, next) => {
   try {
     const { projectId } = req.params;
 
@@ -29,7 +29,7 @@ const getTasks = async (req, res, next) => {
   }
 };
 
-const createTask = async (req, res, next) => {
+export const createTask = async (req, res, next) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -72,7 +72,7 @@ const createTask = async (req, res, next) => {
   }
 };
 
-const updateTask = async (req, res, next) => {
+export const updateTask = async (req, res, next) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -115,7 +115,7 @@ const updateTask = async (req, res, next) => {
   }
 };
 
-const deleteTask = async (req, res, next) => {
+export const deleteTask = async (req, res, next) => {
   try {
     const { id } = req.params;
 
@@ -144,16 +144,6 @@ const deleteTask = async (req, res, next) => {
   }
 };
 
-const validateTask = [
-  body('title').trim().isLength({ min: 1, max: 200 }),
-  body('description').optional().trim().isLength({ max: 1000 }),
-  body('status').optional().isIn(['Todo', 'In Progress', 'Done'])
-];
 
-export {
-  getTasks,
-  createTask,
-  updateTask,
-  deleteTask,
-  validateTask
-};
+
+

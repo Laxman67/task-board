@@ -5,9 +5,8 @@ import {
   createProject,
   updateProject,
   deleteProject,
-  validateProject
 } from '../controllers/projectController.js';
-
+import { validateProject } from '../middleware/validate.js';
 const router = express.Router();
 
 router.use(auth);

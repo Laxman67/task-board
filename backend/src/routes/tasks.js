@@ -4,9 +4,9 @@ import {
   getTasks,
   createTask,
   updateTask,
-  deleteTask,
-  validateTask
+  deleteTask
 } from '../controllers/taskController.js';
+import {validateTask} from '../middleware/validate.js';
 
 const router = express.Router();
 

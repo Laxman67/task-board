@@ -1,8 +1,8 @@
-import { body, validationResult } from 'express-validator';
+import {  validationResult } from 'express-validator';
 import Project from '../models/Project.js';
 import Task from '../models/Task.js';
 
-const getProjects = async (req, res, next) => {
+export const getProjects = async (req, res, next) => {
   try {
     const projects = await Project.find({ userId: req.user._id })
       .sort({ createdAt: -1 });
@@ -16,7 +16,7 @@ const getProjects = async (req, res, next) => {
   }
 };
 
-const createProject = async (req, res, next) => {
+export const createProject = async (req, res, next) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -46,7 +46,7 @@ const createProject = async (req, res, next) => {
   }
 };
 
-const updateProject = async (req, res, next) => {
+export const updateProject = async (req, res, next) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -81,7 +81,7 @@ const updateProject = async (req, res, next) => {
   }
 };
 
-const deleteProject = async (req, res, next) => {
+export const deleteProject = async (req, res, next) => {
   try {
     const { id } = req.params;
 
@@ -107,15 +107,3 @@ const deleteProject = async (req, res, next) => {
   }
 };
 
-const validateProject = [
-  body('name').trim().isLength({ min: 1, max: 100 }),
-  body('description').optional().trim().isLength({ max: 500 })
-];
-
-export {
-  getProjects,
-  createProject,
-  updateProject,
-  deleteProject,
-  validateProject
-};

@@ -1,14 +1,14 @@
 import jwt from 'jsonwebtoken';
-import { body, validationResult } from 'express-validator';
+import {  validationResult } from 'express-validator';
 import User from '../models/User.js';
 
-const generateToken = (userId) => {
+export const generateToken = (userId) => {
   return jwt.sign({ userId }, process.env.JWT_SECRET || 'fallback_secret', {
     expiresIn: '30d'
   });
 };
 
-const register = async (req, res, next) => {
+export const register = async (req, res, next) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -48,7 +48,7 @@ const register = async (req, res, next) => {
   }
 };
 
-const login = async (req, res, next) => {
+export const login = async (req, res, next) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -92,19 +92,4 @@ const login = async (req, res, next) => {
   }
 };
 
-const validateRegister = [
-  body('email').isEmail().normalizeEmail(),
-  body('password').isLength({ min: 6 })
-];
 
-const validateLogin = [
-  body('email').isEmail().normalizeEmail(),
-  body('password').notEmpty()
-];
-
-export {
-  register,
-  login,
-  validateRegister,
-  validateLogin
-};
