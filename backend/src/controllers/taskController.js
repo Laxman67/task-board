@@ -84,14 +84,6 @@ export const createTaskByProjectId = async (req, res, next) => {
 
 export const updateTask = async (req, res, next) => {
   try {
-    const { error } = taskSchema.validate(req.body);
-    if (error) {
-      return res.status(400).json({
-        success: false,
-        message: 'Validation failed',
-        errors: error.details
-      })
-    }
 
     const { title, description, status } = req.body;
     const { id } = req.params;
@@ -99,15 +91,21 @@ export const updateTask = async (req, res, next) => {
     const task = await Task.findById(id).populate('projectId');
 
     if (!task) {
-      const error = new Error('Task not found');
-      error.statusCode = 404;
-      throw error;
+
+      return res.status(404).json({
+        success: false,
+        message: "Task not found",
+        errors: error.details
+      })
     }
 
     if (task.projectId.userId.toString() !== req.user._id.toString()) {
-      const error = new Error('Access denied');
-      error.statusCode = 403;
-      throw error;
+
+      return res.status(404).json({
+        success: false,
+        message: "",
+        errors: error.details
+      })
     }
 
     const updatedTask = await Task.findByIdAndUpdate(
