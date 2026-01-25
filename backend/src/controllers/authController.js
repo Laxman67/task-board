@@ -11,7 +11,6 @@ export const generateToken = (userId) => {
 
 export const register = async (req, res, next) => {
   try {
-    console.log("Inside register");
 
     const { value, error } = registerSchema.validate(req.body);
 
@@ -65,6 +64,9 @@ export const register = async (req, res, next) => {
 
 export const login = async (req, res, next) => {
   try {
+    // TODO: Validate the request body
+
+
     const { value, error } = loginSchema.validate(req.body);
     if (error) {
       return res.status(400).json({
@@ -73,9 +75,11 @@ export const login = async (req, res, next) => {
         errors: error.details
       });
     }
+
     const { email, password } = value;
 
     const user = await User.findOne({ email });
+
     if (!user) {
       return res.status(401).json({
         success: false,
@@ -84,6 +88,7 @@ export const login = async (req, res, next) => {
     }
 
     const isPasswordValid = await user.comparePassword(password);
+
     if (!isPasswordValid) {
       return res.status(401).json({
         success: false,
@@ -92,6 +97,7 @@ export const login = async (req, res, next) => {
     }
 
     const token = generateToken(user._id);
+
 
     res.status(200).cookie('token', token, {
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in milliseconds
@@ -102,7 +108,7 @@ export const login = async (req, res, next) => {
       success: true,
       message: 'Login successful',
       data: {
-        // token,
+        token,
         user: {
           id: user._id,
           email: user.email
@@ -110,6 +116,8 @@ export const login = async (req, res, next) => {
       }
     });
   } catch (error) {
+    console.log(error);
+
     return res.status(500).json({
       success: false,
       message: 'Internal server error'

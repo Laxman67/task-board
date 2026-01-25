@@ -6,13 +6,27 @@ import {
   updateProject,
   deleteProject,
 } from '../controllers/projectController.js';
+import {
+  getTasksByProjectId,
+  createTaskByProjectId,
+  updateTask,
+  deleteTask
+} from '../controllers/taskController.js';
+
 const router = express.Router();
 
 router.use(auth);
 
-router.get('/', auth, getProjects);
-router.post('/', auth, createProject);
-router.put('/:id', auth, updateProject);
-router.delete('/:id', auth, deleteProject);
+// Project routes
+router.get('/', getProjects);
+router.post('/', createProject);
+router.put('/:id', updateProject);
+router.delete('/:id', deleteProject);
+
+// Task routes (nested under projects)
+router.get('/:projectId/tasks', getTasksByProjectId);
+router.post('/:projectId/tasks', createTaskByProjectId);
+router.put('/tasks/:id', updateTask);
+router.delete('/tasks/:id', deleteTask);
 
 export default router;
