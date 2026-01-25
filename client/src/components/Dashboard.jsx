@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { projectsAPI, tasksAPI } from '../services/api';
-import { Plus, LogOut, FolderOpen, CheckCircle, Clock, Circle } from 'lucide-react';
+import { Plus, LogOut, FolderOpen, CheckCircle, Clock, Circle, Trash2 } from 'lucide-react';
 
 const Dashboard = () => {
   const { logout } = useAuth();
@@ -11,7 +11,6 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [showProjectForm, setShowProjectForm] = useState(false);
   const [showTaskForm, setShowTaskForm] = useState(false);
-  const [error, setError] = useState('');
 
   // Form states
   const [projectForm, setProjectForm] = useState({ name: '', description: '' });
@@ -35,7 +34,7 @@ const Dashboard = () => {
         setSelectedProject(response.data.data[0]);
       }
     } catch (err) {
-      setError('Failed to fetch projects');
+      // Error is already handled in API service with toast
     } finally {
       setLoading(false);
     }
@@ -46,7 +45,7 @@ const Dashboard = () => {
       const response = await tasksAPI.getByProject(projectId);
       setTasks(response.data.data);
     } catch (err) {
-      setError('Failed to fetch tasks');
+      // Error is already handled in API service with toast
     }
   };
 
@@ -58,7 +57,7 @@ const Dashboard = () => {
       setShowProjectForm(false);
       fetchProjects();
     } catch (err) {
-      setError('Failed to create project');
+      // Error is already handled in API service with toast
     }
   };
 
@@ -70,7 +69,7 @@ const Dashboard = () => {
       setShowTaskForm(false);
       fetchTasks(selectedProject._id);
     } catch (err) {
-      setError('Failed to create task');
+      // Error is already handled in API service with toast
     }
   };
 
@@ -79,7 +78,7 @@ const Dashboard = () => {
       await tasksAPI.update(taskId, { status: newStatus });
       fetchTasks(selectedProject._id);
     } catch (err) {
-      setError('Failed to update task');
+      // Error is already handled in API service with toast
     }
   };
 
@@ -88,7 +87,7 @@ const Dashboard = () => {
       await tasksAPI.delete(taskId);
       fetchTasks(selectedProject._id);
     } catch (err) {
-      setError('Failed to delete task');
+      // Error is already handled in API service with toast
     }
   };
 
@@ -132,11 +131,6 @@ const Dashboard = () => {
       </header>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {error && (
-          <div className="mb-4 bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-md">
-            {error}
-          </div>
-        )}
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Projects Sidebar */}
@@ -164,7 +158,7 @@ const Dashboard = () => {
                     }`}
                   >
                     <div className="flex items-center gap-2">
-                      <FolderOpen className="h-4 w-4 text-gray-400" />
+                      <FolderOpen className="h-4 w-4 text-gray-400 text-yellow-600 text-extrabold" />
                       <span className="font-medium text-gray-900">{project.name}</span>
                     </div>
                     {project.description && (
@@ -226,7 +220,7 @@ const Dashboard = () => {
                               onClick={() => deleteTask(task._id)}
                               className="text-red-600 hover:text-red-800 text-sm"
                             >
-                              Delete
+                            <Trash2 />
                             </button>
                           </div>
                         </div>
@@ -266,7 +260,7 @@ const Dashboard = () => {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Description (optional)
+                    Description
                   </label>
                   <textarea
                     maxLength="500"
@@ -319,7 +313,7 @@ const Dashboard = () => {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Description (optional)
+                    Description
                   </label>
                   <textarea
                     maxLength="1000"

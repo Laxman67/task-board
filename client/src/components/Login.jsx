@@ -8,7 +8,7 @@ const Login = ({ onToggle }) => {
     password: '',
   });
   const [showPassword, setShowPassword] = useState(false);
-  const { login, loading, error } = useAuth();
+  const { login, loading } = useAuth();
 const navigate = useNavigate()
   const handleChange = (e) => {
     setFormData({
@@ -46,11 +46,6 @@ if(res.success){
         </div>
 
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          {error && (
-            <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-md">
-              {error}
-            </div>
-          )}
 
           <div className="space-y-4">
             <div>

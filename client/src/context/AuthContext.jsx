@@ -14,7 +14,6 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     const getCookie = (name) => {
@@ -35,7 +34,6 @@ export const AuthProvider = ({ children }) => {
   const register = async (userData) => {
     try {
       setLoading(true);
-      setError(null);
       const response = await authAPI.register(userData);
       const { token } = response.data.data;
 
@@ -44,9 +42,7 @@ export const AuthProvider = ({ children }) => {
 
       return { success: true };
     } catch (err) {
-      const message = err.response?.data?.message || 'Registration failed';
-      setError(message);
-      return { success: false, error: message };
+      return { success: false };
     } finally {
       setLoading(false);
     }
@@ -55,7 +51,6 @@ export const AuthProvider = ({ children }) => {
   const login = async (userData) => {
     try {
       setLoading(true);
-      setError(null);
       const response = await authAPI.login(userData);
 
       const {user,token} = response.data.data;
@@ -65,9 +60,7 @@ export const AuthProvider = ({ children }) => {
 
       return { success: true };
     } catch (err) {
-      const message = err.response?.data?.message || 'Login failed';
-      setError(message);
-      return { success: false, error: message };
+      return { success: false };
     } finally {
       setLoading(false);
     }
@@ -76,13 +69,11 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     document.cookie = 'token=; path=/; max-age=0';
     setUser(null);
-    setError(null);
   };
 
   const value = {
     user,
     loading,
-    error,
     register,
     login,
     logout,

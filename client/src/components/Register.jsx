@@ -10,7 +10,7 @@ const Register = ({ onToggle }) => {
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const { register, loading, error } = useAuth();
+  const { register, loading } = useAuth();
 
   const handleChange = (e) => {
     setFormData({
@@ -51,11 +51,6 @@ const Register = ({ onToggle }) => {
         </div>
 
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          {error && (
-            <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-md">
-              {error}
-            </div>
-          )}
 
           <div className="space-y-4">
             <div>
