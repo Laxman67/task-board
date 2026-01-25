@@ -27,7 +27,7 @@ const Tasks = ({ setShowTaskForm, selectedProject, tasks, getStatusIcon, updateT
                   </div>
                   <div className="bg-amber-50 rounded-lg p-3 text-center">
                     <div className="text-2xl font-bold text-amber-600">{tasks.filter((task) => task.status === 'In Progress').length}</div>
-                    <div className="text-sm text-amber-600 font-medium">In Progress</div>
+                    <div className="text-sm text-amber-600  font-medium">In Progress</div>
                   </div>
                 </div>
               </div>
