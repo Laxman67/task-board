@@ -1,4 +1,4 @@
-import { Plus, SquareArrowOutUpRight, Trash2 } from 'lucide-react'
+import { FolderOpen, Plus, SquareArrowOutUpRight, Trash2 } from 'lucide-react'
 import React from 'react'
 import { Link } from 'react-router-dom'
 

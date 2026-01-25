@@ -48,7 +48,7 @@ export const register = async (req, res, next) => {
       success: true,
       message: 'User registered successfully',
       data: {
-        // token,
+        token,
         user
       }
     });

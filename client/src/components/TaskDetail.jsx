@@ -30,7 +30,7 @@ const TaskDetail = () => {
         withCredentials: true
       });
       const data = response.data;
-      console.log(data.data.projectId);
+
 
 
       if (data.success) {

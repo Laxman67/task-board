@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Eye, EyeOff, Mail, Lock, User } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const Register = ({ onToggle }) => {
   const [formData, setFormData] = useState({
+    firstname: '',
+    lastname: '',
     email: '',
     password: '',
     confirmPassword: '',
@@ -11,6 +14,7 @@ const Register = ({ onToggle }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const { register, loading } = useAuth();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
@@ -26,10 +30,15 @@ const Register = ({ onToggle }) => {
       return;
     }
 
-    await register({
+    const response = await register({
+      firstname: formData.firstname,
+      lastname: formData.lastname,
       email: formData.email,
       password: formData.password,
     });
+    if (response.success) {
+      navigate('/dashboard');
+    }
   };
 
   return (
@@ -40,7 +49,7 @@ const Register = ({ onToggle }) => {
             <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-full mb-4">
               <User className="h-8 w-8 text-white" />
             </div>
-            <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+            <h2 className="text-3xl font-bold bg-linear-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
               Create your account
             </h2>
             <p className="mt-2 text-gray-600">
@@ -60,6 +69,50 @@ const Register = ({ onToggle }) => {
           <form className="space-y-6" onSubmit={handleSubmit}>
 
             <div className="space-y-5">
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label htmlFor="firstname" className="block text-sm font-semibold text-gray-700 mb-2">
+                    First Name
+                  </label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <User className="h-5 w-5 text-gray-400" />
+                    </div>
+                    <input
+                      id="firstname"
+                      name="firstname"
+                      type="text"
+                      required
+                      className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg placeholder-gray-400 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                      placeholder="First name"
+                      value={formData.firstname}
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label htmlFor="lastname" className="block text-sm font-semibold text-gray-700 mb-2">
+                    Last Name
+                  </label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <User className="h-5 w-5 text-gray-400" />
+                    </div>
+                    <input
+                      id="lastname"
+                      name="lastname"
+                      type="text"
+                      required
+                      className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg placeholder-gray-400 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                      placeholder="Last name"
+                      value={formData.lastname}
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
+              </div>
+
               <div>
                 <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
                   Email address
@@ -171,3 +224,4 @@ const Register = ({ onToggle }) => {
 };
 
 export default Register;
+
