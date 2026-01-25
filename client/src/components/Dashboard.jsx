@@ -151,11 +151,10 @@ const Dashboard = () => {
                   <button
                     key={project._id}
                     onClick={() => setSelectedProject(project)}
-                    className={`w-full text-left p-3 rounded-md transition-colors ${
-                      selectedProject?._id === project._id
-                        ? 'bg-indigo-50 border-indigo-200 border'
-                        : 'hover:bg-gray-50'
-                    }`}
+                    className={`w-full text-left p-3 rounded-md transition-colors ${selectedProject?._id === project._id
+                      ? 'bg-indigo-50 border-indigo-200 border'
+                      : 'hover:bg-gray-50'
+                      }`}
                   >
                     <div className="flex items-center gap-2">
                       <FolderOpen className="h-4 w-4 text-gray-400 text-yellow-600 text-extrabold" />
@@ -180,6 +179,21 @@ const Dashboard = () => {
                     {selectedProject.description && (
                       <p className="text-gray-600 mt-1">{selectedProject.description}</p>
                     )}
+
+                    <div className="grid grid-cols-3 gap-4 mt-4">
+                      <div className="bg-blue-50 rounded-lg p-3 text-center">
+                        <div className="text-2xl font-bold text-blue-600">{tasks.length}</div>
+                        <div className="text-sm text-blue-600 font-medium">Total Tasks</div>
+                      </div>
+                      <div className="bg-green-50 rounded-lg p-3 text-center">
+                        <div className="text-2xl font-bold text-green-600">{tasks.filter((task) => task.status === 'Done').length}</div>
+                        <div className="text-sm text-green-600 font-medium">Completed</div>
+                      </div>
+                      <div className="bg-amber-50 rounded-lg p-3 text-center">
+                        <div className="text-2xl font-bold text-amber-600">{tasks.filter((task) => task.status === 'In Progress').length}</div>
+                        <div className="text-sm text-amber-600 font-medium">In Progress</div>
+                      </div>
+                    </div>
                   </div>
                   <button
                     onClick={() => setShowTaskForm(true)}
@@ -220,7 +234,7 @@ const Dashboard = () => {
                               onClick={() => deleteTask(task._id)}
                               className="text-red-600 hover:text-red-800 text-sm"
                             >
-                            <Trash2 />
+                              <Trash2 />
                             </button>
                           </div>
                         </div>
