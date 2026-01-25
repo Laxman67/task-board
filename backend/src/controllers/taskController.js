@@ -3,6 +3,38 @@ import Task from '../models/Task.js';
 import Project from '../models/Project.js';
 import { taskSchema } from '../middleware/validate.js';
 
+export const getTaskById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const task = await Task.findById(id).populate('projectId');
+
+    if (!task) {
+      return res.status(404).json({
+        success: false,
+        message: 'Task not found'
+      })
+    }
+
+    if (task.projectId.userId.toString() !== req.user._id.toString()) {
+      return res.status(403).json({
+        success: false,
+        message: "Access denied"
+      })
+    }
+
+    res.status(200).json({
+      success: true,
+      data: task
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: 'Internal server error'
+    })
+  }
+};
+
 export const getTasksByProjectId = async (req, res, next) => {
   try {
     const { projectId } = req.params;
@@ -83,6 +115,8 @@ export const createTaskByProjectId = async (req, res, next) => {
 };
 
 export const updateTask = async (req, res, next) => {
+
+
   try {
 
     const { title, description, status } = req.body;
@@ -134,6 +168,7 @@ export const updateTask = async (req, res, next) => {
 };
 
 export const deleteTask = async (req, res, next) => {
+
   try {
     const { id } = req.params;
 

@@ -1,5 +1,6 @@
-import { Plus, Trash2 } from 'lucide-react'
+import { Plus, SquareArrowOutUpRight, Trash2 } from 'lucide-react'
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Tasks = ({ setShowTaskForm, selectedProject, tasks, getStatusIcon, updateTaskStatus, deleteTask }) => {
   return (
@@ -56,7 +57,12 @@ const Tasks = ({ setShowTaskForm, selectedProject, tasks, getStatusIcon, updateT
                           {getStatusIcon(task.status)}
                         </div>
                         <div className="flex-1">
-                          <h3 className="font-semibold text-gray-900 text-lg">{task.title}</h3>
+                          <div className='flex gap-3'>
+                            <h3 className="font-semibold text-gray-900 text-lg">{task.title}</h3>
+                            <Link to={`/tasks/${task._id}`}>
+                              <SquareArrowOutUpRight className='h-4 w-4 text-blue-600 transition-colors duration-200 cursor-pointer' />
+                            </Link>
+                          </div>
                           {task.description && (
                             <p className="text-gray-600 text-sm mt-2 leading-relaxed">{task.description}</p>
                           )}

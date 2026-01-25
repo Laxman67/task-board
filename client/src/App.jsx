@@ -7,6 +7,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Login from './components/Login';
 import Register from './components/Register';
 import Dashboard from './components/Dashboard';
+import TaskDetail from './components/TaskDetail';
 
 function App() {
   const [isLogin, setIsLogin] = useState(true);
@@ -33,6 +34,11 @@ function App() {
             <Route path="/dashboard" element={
               <ProtectedRoute>
                 <Dashboard />
+              </ProtectedRoute>
+            } />
+            <Route path="/tasks/:taskId" element={
+              <ProtectedRoute>
+                <TaskDetail />
               </ProtectedRoute>
             } />
             <Route path="/" element={<Navigate to="/dashboard" replace />} />

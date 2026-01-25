@@ -26,7 +26,7 @@ const Header = ({ logout }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           <div className="flex items-center">
-            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-2 mr-3">
+            <div className="bg-white rounded-lg p-2 mr-3 shadow-lg">
               <img src="./TaskBoard_logo.png" alt='logo' className='w-60 bg-contain' />
             </div>
             {/* <h1 className="text-2xl font-bold text-white">
