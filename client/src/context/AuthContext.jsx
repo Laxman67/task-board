@@ -35,7 +35,10 @@ export const AuthProvider = ({ children }) => {
     try {
       setLoading(true);
       const response = await authAPI.register(userData);
-      const { token } = response.data.data;
+      const { token, user } = response.data.data;
+      console.log(user);
+      console.log(token);
+
 
       document.cookie = `token=${token}; path=/; max-age=${7 * 24 * 60 * 60}`; // 7 days
       setUser({ token });
@@ -53,7 +56,9 @@ export const AuthProvider = ({ children }) => {
       setLoading(true);
       const response = await authAPI.login(userData);
 
-      const {user,token} = response.data.data;
+      const { token, user } = response.data.data;
+      console.log(user);
+      console.log(token);
 
       document.cookie = `token=${token}; path=/; max-age=${7 * 24 * 60 * 60}`; // 7 days
       setUser(user);
