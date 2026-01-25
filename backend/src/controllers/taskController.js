@@ -56,7 +56,7 @@ export const createTaskByProjectId = async (req, res, next) => {
     if (!project) {
       return res.status(404).json({
         success: false,
-        message: 'Project not found'
+        message: 'Project not found or operation not allowed'
       })
     }
 
@@ -88,23 +88,28 @@ export const updateTask = async (req, res, next) => {
     const { title, description, status } = req.body;
     const { id } = req.params;
 
-    const task = await Task.findById(id).populate('projectId');
-
-    if (!task) {
-
-      return res.status(404).json({
+    if (!id) {
+      return res.status(400).json({
         success: false,
-        message: "Task not found",
-        errors: error.details
+        message: "Task ID is required"
       })
     }
 
-    if (task.projectId.userId.toString() !== req.user._id.toString()) {
+    const task = await Task.findById(id).populate("projectId");
 
+    if (!task) {
       return res.status(404).json({
         success: false,
-        message: "",
-        errors: error.details
+        message: "Task not found"
+      })
+    }
+
+    // Check if user is authorized to update the task
+    if (req.user._id.toString() !== task.projectId.userId.toString()) {
+
+      return res.status(403).json({
+        success: false,
+        message: "Access denied"
       })
     }
 
@@ -120,6 +125,7 @@ export const updateTask = async (req, res, next) => {
       data: updatedTask
     });
   } catch (error) {
+
     return res.status(500).json({
       success: false,
       message: 'Internal server error'
@@ -134,15 +140,17 @@ export const deleteTask = async (req, res, next) => {
     const task = await Task.findById(id).populate('projectId');
 
     if (!task) {
-      const error = new Error('Task not found');
-      error.statusCode = 404;
-      throw error;
+      return res.status(404).json({
+        success: false,
+        message: 'Task not found'
+      })
     }
 
     if (task.projectId.userId.toString() !== req.user._id.toString()) {
-      const error = new Error('Access denied');
-      error.statusCode = 403;
-      throw error;
+      return res.status(403).json({
+        success: false,
+        message: "Access denied"
+      })
     }
 
     await Task.findByIdAndDelete(id);
