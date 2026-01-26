@@ -14,7 +14,7 @@ export const authAPI = {
     } catch (error) {
       const errorMessage = error.response?.data?.message || 'Registration failed';
       toast.error(errorMessage);
-      console.error('Register error:', error.response?.data || error.message);
+      // console.error('Register error:', error.response?.data || error.message);
       throw error;
     }
   },
@@ -27,7 +27,7 @@ export const authAPI = {
     } catch (error) {
       const errorMessage = error.response?.data?.message || 'Login failed';
       toast.error(errorMessage);
-      console.error('Login error:', error.response?.data || error.message);
+      // console.error('Login error:', error.response?.data || error.message);
       throw error;
     }
   }
@@ -43,7 +43,7 @@ export const projectsAPI = {
     } catch (error) {
       const errorMessage = error.response?.data?.message || 'Failed to fetch projects';
       toast.error(errorMessage);
-      console.error('Get projects error:', error.response?.data || error.message);
+      // console.error('Get projects error:', error.response?.data || error.message);
       throw error;
     }
   },
@@ -58,7 +58,7 @@ export const projectsAPI = {
     } catch (error) {
       const errorMessage = error.response?.data?.message || 'Failed to create project';
       toast.error(errorMessage);
-      console.error('Create project error:', error.response?.data || error.message);
+      // console.error('Create project error:', error.response?.data || error.message);
       throw error;
     }
   },
@@ -73,7 +73,7 @@ export const projectsAPI = {
     } catch (error) {
       const errorMessage = error.response?.data?.message || 'Failed to update project';
       toast.error(errorMessage);
-      console.error('Update project error:', error.response?.data || error.message);
+      // console.error('Update project error:', error.response?.data || error.message);
       throw error;
     }
   },
@@ -88,7 +88,7 @@ export const projectsAPI = {
     } catch (error) {
       const errorMessage = error.response?.data?.message || 'Failed to delete project';
       toast.error(errorMessage);
-      console.error('Delete project error:', error.response?.data || error.message);
+      // console.error('Delete project error:', error.response?.data || error.message);
       throw error;
     }
   }
@@ -105,7 +105,7 @@ export const tasksAPI = {
     } catch (error) {
       const errorMessage = error.response?.data?.message || 'Failed to fetch tasks';
       toast.error(errorMessage);
-      console.error('Get tasks error:', error.response?.data || error.message);
+      // console.error('Get tasks error:', error.response?.data || error.message);
       throw error;
     }
   },
@@ -120,7 +120,7 @@ export const tasksAPI = {
     } catch (error) {
       const errorMessage = error.response?.data?.message || 'Failed to create task';
       toast.error(errorMessage);
-      console.error('Create task error:', error.response?.data || error.message);
+      // console.error('Create task error:', error.response?.data || error.message);
       throw error;
     }
   },
@@ -135,7 +135,7 @@ export const tasksAPI = {
     } catch (error) {
       const errorMessage = error.response?.data?.message || 'Failed to update task';
       toast.error(errorMessage);
-      console.error('Update task error:', error.response?.data || error.message);
+      // console.error('Update task error:', error.response?.data || error.message);
       throw error;
     }
   },
@@ -150,7 +150,7 @@ export const tasksAPI = {
     } catch (error) {
       const errorMessage = error.response?.data?.message || 'Failed to delete task';
       toast.error(errorMessage);
-      console.error('Delete task error:', error.response?.data || error.message);
+      // console.error('Delete task error:', error.response?.data || error.message);
       throw error;
     }
   }

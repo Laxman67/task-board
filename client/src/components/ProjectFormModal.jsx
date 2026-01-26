@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ProjectFormModal = ({ createProject, projectForm, setProjectForm, setShowProjectForm }) => {
+const ProjectFormModal = ({ createProject, updateProject, projectForm, setProjectForm, setShowProjectForm, isEditing = false }) => {
 
 
   return (
@@ -11,9 +11,11 @@ const ProjectFormModal = ({ createProject, projectForm, setProjectForm, setShowP
             <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-full flex items-center justify-center">
               <div className="w-6 h-6 bg-white rounded-full"></div>
             </div>
-            <h3 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">Create New Project</h3>
+            <h3 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+              {isEditing ? 'Edit Project' : 'Create New Project'}
+            </h3>
           </div>
-          <form onSubmit={createProject}>
+          <form onSubmit={isEditing ? updateProject : createProject}>
             <div className="space-y-5">
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
@@ -49,7 +51,7 @@ const ProjectFormModal = ({ createProject, projectForm, setProjectForm, setShowP
                 type="submit"
                 className="flex-1 bg-gradient-to-r from-blue-600 to-cyan-600 text-white py-3 rounded-lg hover:from-blue-700 hover:to-cyan-700 transition-all duration-200 transform hover:scale-[1.02] font-semibold shadow-lg"
               >
-                Create Project
+                {isEditing ? 'Update Project' : 'Create Project'}
               </button>
               <button
                 type="button"

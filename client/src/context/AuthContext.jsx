@@ -37,9 +37,6 @@ export const AuthProvider = ({ children }) => {
       const response = await authAPI.register(userData);
       const { token, user } = response.data.data;
 
-      console.log(token);
-      console.log(user);
-
 
       document.cookie = `token=${token}; path=/; max-age=${7 * 24 * 60 * 60}`; // 7 days
       setUser({ token });

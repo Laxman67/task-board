@@ -16,6 +16,8 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [showProjectForm, setShowProjectForm] = useState(false);
   const [showTaskForm, setShowTaskForm] = useState(false);
+  const [isEditingProject, setIsEditingProject] = useState(false);
+  const [editingProjectId, setEditingProjectId] = useState(null);
 
   // Form states
   const [projectForm, setProjectForm] = useState({ name: '', description: '' });
@@ -66,6 +68,41 @@ const Dashboard = () => {
     }
   };
 
+  const updateProject = async (e) => {
+    e.preventDefault();
+    try {
+      await projectsAPI.update(editingProjectId, projectForm);
+      setProjectForm({ name: '', description: '' });
+      setShowProjectForm(false);
+      setIsEditingProject(false);
+      setEditingProjectId(null);
+      fetchProjects();
+    } catch (err) {
+      // Error is already handled in API service with toast
+    }
+  };
+
+  const deleteProject = async (project) => {
+    if (window.confirm(`Are you sure you want to delete "${project.name}"? This will also delete all tasks in this project.`)) {
+      try {
+        await projectsAPI.delete(project._id);
+        if (selectedProject?._id === project._id) {
+          setSelectedProject(null);
+        }
+        fetchProjects();
+      } catch (err) {
+        // Error is already handled in API service with toast
+      }
+    }
+  };
+
+  const editProject = (project) => {
+    setProjectForm({ name: project.name, description: project.description });
+    setEditingProjectId(project._id);
+    setIsEditingProject(true);
+    setShowProjectForm(true);
+  };
+
   const createTask = async (e) => {
     e.preventDefault();
     try {
@@ -87,12 +124,15 @@ const Dashboard = () => {
     }
   };
 
-  const deleteTask = async (taskId) => {
-    try {
-      await tasksAPI.delete(taskId);
-      fetchTasks(selectedProject._id);
-    } catch (err) {
-      // Error is already handled in API service with toast
+  const deleteTask = async (task) => {
+    if (window.confirm(`Are you sure you want to task "${task.title}"`)) {
+      try {
+        await tasksAPI.delete(task._id);
+        fetchTasks(selectedProject._id);
+
+      } catch (err) {
+        // Error is already handled in API service with toast
+      }
     }
   };
 
@@ -126,7 +166,14 @@ const Dashboard = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Projects Sidebar */}
-          <ProjectSidebar projects={projects} setSelectedProject={setSelectedProject} setShowProjectForm={setShowProjectForm} selectedProject={selectedProject} />
+          <ProjectSidebar
+            projects={projects}
+            setSelectedProject={setSelectedProject}
+            setShowProjectForm={setShowProjectForm}
+            selectedProject={selectedProject}
+            onEditProject={editProject}
+            onDeleteProject={deleteProject}
+          />
 
           {/* Tasks Area */}
           <Tasks setShowTaskForm={setShowTaskForm} selectedProject={selectedProject} tasks={tasks} getStatusIcon={getStatusIcon} updateTaskStatus={updateTaskStatus} deleteTask={deleteTask} />
@@ -135,7 +182,14 @@ const Dashboard = () => {
 
       {/* Project Form Modal */}
       {showProjectForm && (
-        <ProjectFormModal createProject={createProject} projectForm={projectForm} setProjectForm={setProjectForm} setShowProjectForm={setShowProjectForm} />
+        <ProjectFormModal
+          createProject={createProject}
+          updateProject={updateProject}
+          projectForm={projectForm}
+          setProjectForm={setProjectForm}
+          setShowProjectForm={setShowProjectForm}
+          isEditing={isEditingProject}
+        />
       )}
 
       {/* Task Form Modal */}
