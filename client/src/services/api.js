@@ -8,7 +8,9 @@ export const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:50
 export const authAPI = {
   register: async (userData) => {
     try {
-      const response = await axios.post(`${API_BASE_URL}/auth/register`, userData);
+      const response = await axios.post(`${API_BASE_URL}/auth/register`, userData, {
+        withCredentials: true // This is crucial for sending cookies
+      });
       toast.success('Registration successful!');
       return response;
     } catch (error) {
@@ -21,7 +23,9 @@ export const authAPI = {
 
   login: async (userData) => {
     try {
-      const response = await axios.post(`${API_BASE_URL}/auth/login`, userData);
+      const response = await axios.post(`${API_BASE_URL}/auth/login`, userData, {
+        withCredentials: true // This is crucial for sending cookies
+      });
       toast.info('Login successful!');
       return response;
     } catch (error) {
