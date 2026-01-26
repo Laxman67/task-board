@@ -40,9 +40,9 @@ export const register = async (req, res, next) => {
     const token = generateToken(user._id);
 
     res.status(201).cookie('token', token, {
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in milliseconds
+      maxAge: process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000, // 7 days in milliseconds
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: process.env.NODE_ENV === "production" ? true : false,
       sameSite: 'lax'
     }).json({
       success: true,
@@ -100,9 +100,9 @@ export const login = async (req, res, next) => {
 
 
     res.status(200).cookie('token', token, {
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in milliseconds
+      maxAge: process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000, // 1  days in milliseconds
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: process.env.NODE_ENV === "production" ? true : false,
       sameSite: 'lax'
     }).json({
       success: true,

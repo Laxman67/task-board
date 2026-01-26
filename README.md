@@ -84,7 +84,7 @@ MONGODB_URI=mongodb://localhost:27017/taskboard
 
 # JWT
 JWT_SECRET=your_jwt_secret_key_here_make_it_long_and_random
-COOKIE_EXPIRE=7
+COOKIE_EXPIRE=1d
 
 # Server
 PORT=5000

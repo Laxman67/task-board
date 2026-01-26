@@ -38,7 +38,7 @@ export const AuthProvider = ({ children }) => {
       const { token, user } = response.data.data;
 
 
-      document.cookie = `token=${token}; path=/; max-age=${7 * 24 * 60 * 60}`; // 7 days
+      document.cookie = `token=${token}; path=/; max-age=${import.meta.env.VITE_COOKIE_EXPIRE * 24 * 60 * 60}`; // 7 days
       setUser({ token });
 
       return { success: true };
@@ -57,7 +57,7 @@ export const AuthProvider = ({ children }) => {
       const { token, user } = response.data.data;
 
 
-      document.cookie = `token=${token}; path=/; max-age=${7 * 24 * 60 * 60}`; // 7 days
+      document.cookie = `token=${token}; path=/; max-age=${import.meta.env.VITE_COOKIE_EXPIRE * 24 * 60 * 60}`; // 7 days
       setUser(user);
 
       return { success: true };
