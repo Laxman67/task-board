@@ -3,7 +3,7 @@ import React from 'react'
 const TasksFormModal = ({ createTask, taskForm, setTaskForm, setShowTaskForm }) => {
   return (
     <>
-      <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+      <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50" onClick={() => setShowTaskForm(false)}>
         <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl border border-white/20 p-8 w-full max-w-md transform transition-all" onClick={(e) => e.stopPropagation()}>
           <div className="flex items-center gap-3 mb-6">
             <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-full flex items-center justify-center">

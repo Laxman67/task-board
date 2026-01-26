@@ -73,10 +73,10 @@ const Tasks = ({ setShowTaskForm, selectedProject, tasks, getStatusIcon, updateT
                           value={task.status}
                           onChange={(e) => updateTaskStatus(task._id, e.target.value)}
                           className={`text-sm border rounded-lg px-3 py-2 bg-white/80 backdrop-blur-sm focus:outline-none focus:ring-2 focus:border-blue-500 transition-all duration-200 font-medium ${task.status === 'Todo'
-                              ? 'border-blue-300 text-blue-700 focus:ring-blue-500'
-                              : task.status === 'In Progress'
-                                ? 'border-amber-300 text-amber-700 focus:ring-amber-500'
-                                : 'border-green-300 text-green-700 focus:ring-green-500'
+                            ? 'border-blue-300 text-blue-700 focus:ring-blue-500'
+                            : task.status === 'In Progress'
+                              ? 'border-amber-300 text-amber-700 focus:ring-amber-500'
+                              : 'border-green-300 text-green-700 focus:ring-green-500'
                             }`}
                         >
                           <option value="Todo" className="text-blue-700">🔵 Todo</option>
