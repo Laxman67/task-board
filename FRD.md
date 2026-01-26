@@ -1,6 +1,10 @@
 # Functional Requirements Document (FRD)
 ## Task Management System
 
+<div align="center">
+  <img src="./client/public/TaskBoard_logo.png" alt="Task Management System Logo" width="300" height="auto">
+</div>
+
 ### 1. Feature List
 
 #### Core Features
@@ -60,12 +64,12 @@
 
 #### Project Validations
 - Project name: Required, max 100 characters
-- Project description: Optional, max 500 characters
+- Project description:  max 500 characters
 - Project belongs to authenticated user
 
 #### Task Validations
 - Task title: Required, max 200 characters
-- Task description: Optional, max 1000 characters
+- Task description:  max 1000 characters
 - Task status: Must be one of (Todo, In Progress, Done)
 - Task belongs to a project owned by user
 
