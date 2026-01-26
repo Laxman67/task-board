@@ -84,7 +84,7 @@ MONGODB_URI=mongodb://localhost:27017/taskboard
 
 # JWT
 JWT_SECRET=your_jwt_secret_key_here_make_it_long_and_random
-COOKIE_EXPIRE=1d
+COOKIE_EXPIRE=1
 
 # Server
 PORT=5000
@@ -121,7 +121,33 @@ The application will be available at:
 - **Frontend**: http://localhost:5173
 - **Backend API**: http://localhost:5000
 
-## 📁 Project Structure
+## � Pre-created Users
+
+For testing purposes, the application comes with two pre-created user accounts:
+
+### User 1: John Doe
+```json
+{
+    "firstname": "John",
+    "lastname": "Doe",
+    "email": "john89@example.com",
+    "password": "John@90"
+}
+```
+
+### User 2: Mandeep Singh
+```json
+{
+    "firstname": "Mandeep",
+    "lastname": "Singh",
+    "email": "MandeepS89@example.com",
+    "password": "Mandep@156"
+}
+```
+
+These users already have projects and tasks created in the system, which you can use to explore the application's features without needing to create new accounts from scratch.
+
+## �📁 Project Structure
 
 ```
 task-board/
