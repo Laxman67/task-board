@@ -43,7 +43,7 @@ export const register = async (req, res, next) => {
       maxAge: process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000, // 7 days in milliseconds
       httpOnly: true,
       // secure: process.env.NODE_ENV === "production" ? true : false,
-      sameSite: 'lax'
+      // sameSite: 'lax'
     }).json({
       success: true,
       message: 'User registered successfully',
@@ -103,7 +103,7 @@ export const login = async (req, res, next) => {
       maxAge: process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000, // 1  days in milliseconds
       httpOnly: true,
       // secure: process.env.NODE_ENV === "production" ? true : false,
-      sameSite: 'lax'
+      // sameSite: 'lax'
     }).json({
       success: true,
       message: 'Login successful',
