@@ -4,14 +4,12 @@ import User from '../models/User.js';
 const auth = async (req, res, next) => {
   try {
     const token = req.cookies.token;
-    console.log("token");
-    console.log(token);
 
     if (!token) {
       return res.status(401).json({
         success: false,
-        message: 'Access denied. No token provided.'
-      })
+        message: 'Access denied. No token provided.',
+      });
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -20,8 +18,8 @@ const auth = async (req, res, next) => {
     if (!user) {
       return res.status(401).json({
         success: false,
-        message: 'Token is valid but user not found.'
-      })
+        message: 'Token is valid but user not found.',
+      });
     }
 
     req.user = user;
@@ -30,19 +28,19 @@ const auth = async (req, res, next) => {
     if (error.name === 'JsonWebTokenError') {
       return res.status(401).json({
         success: false,
-        message: 'Invalid token.'
-      })
+        message: 'Invalid token.',
+      });
     } else if (error.name === 'TokenExpiredError') {
       return res.status(401).json({
         success: false,
-        message: 'Token expired.'
-      })
+        message: 'Token expired.',
+      });
     }
 
     return res.status(500).json({
       success: false,
-      message: 'Internal server error'
-    })
+      message: 'Internal server error',
+    });
   }
 };
 
