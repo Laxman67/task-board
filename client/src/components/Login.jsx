@@ -9,7 +9,6 @@ const Login = ({ onToggle }) => {
   });
   const [showPassword, setShowPassword] = useState(false);
   const { login, loading, user } = useAuth();
-  console.log(user);
 
   const navigate = useNavigate();
   const handleChange = (e) => {
