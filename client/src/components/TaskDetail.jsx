@@ -1,9 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { ArrowLeft, Calendar, User, Tag, Edit2, Trash2, Save, X } from 'lucide-react';
+import {
+  ArrowLeft,
+  Calendar,
+  User,
+  Tag,
+  Edit2,
+  Trash2,
+  Save,
+  X,
+} from 'lucide-react';
 import { toast } from 'react-toastify';
 
 import axios from 'axios';
+import { tasksAPI } from '../services/api';
 
 const TaskDetail = () => {
   const { taskId, projectId } = useParams();
@@ -14,7 +24,7 @@ const TaskDetail = () => {
   const [editedTask, setEditedTask] = useState({
     title: '',
     description: '',
-    status: 'Todo'
+    status: 'Todo',
   });
   const [projectName, setProjectName] = useState(null);
 
@@ -22,23 +32,17 @@ const TaskDetail = () => {
     fetchTask();
   }, [taskId]);
 
-
-
   const fetchTask = async () => {
+    // TODO
+    {
+    }
+
     try {
-      const response = await axios.get(`${import.meta.env.VITE_API_URL}/tasks/${taskId}`, {
-        withCredentials: true
-      });
-      const data = response.data;
-
-
+      const response = await tasksAPI.fetchTask(taskId);
+      const { data } = response;
 
       if (data.success) {
-
-
-
         const taskData = data.data || data;
-
 
         setProjectName(taskData?.projectId?.name);
         setTask(taskData);
@@ -57,18 +61,18 @@ const TaskDetail = () => {
 
   const handleUpdateTask = async () => {
     try {
-      const response = await axios.put(`${import.meta.env.VITE_API_URL}/tasks/${taskId}`, { title: editedTask.title, description: editedTask.description, status: editedTask.status }, {
-        withCredentials: true
+      const response = await tasksAPI.update(taskId, {
+        title: editedTask.title,
+        description: editedTask.description,
+        status: editedTask.status,
       });
-      const data = response.data;
-
+      const { data } = response;
 
       if (data.success) {
         toast.success('Task updated successfully');
         navigate(`/tasks/${taskId}`);
-        setIsEditing(false)
-        fetchTask()
-
+        setIsEditing(false);
+        fetchTask();
       } else {
         toast.error('Failed to update task');
       }
@@ -79,18 +83,14 @@ const TaskDetail = () => {
 
   const handleDeleteTask = async () => {
     if (window.confirm('Are you sure you want to delete this task?')) {
-
-
       try {
-        const response = await axios.delete(`${import.meta.env.VITE_API_URL}/tasks/${taskId}`, {
-          withCredentials: true
-        });
+        const response = await tasksAPI.update(taskId);
+
         const data = response.data;
 
         if (data.success) {
           toast.success('Task deleted successfully');
           navigate(`/dashboard`);
-
         }
       } catch (error) {
         toast.error('Error while deleting  task');
@@ -117,7 +117,7 @@ const TaskDetail = () => {
       month: 'long',
       day: 'numeric',
       hour: '2-digit',
-      minute: '2-digit'
+      minute: '2-digit',
     });
   };
 
@@ -137,7 +137,10 @@ const TaskDetail = () => {
       <div className="min-h-screen bg-linear-to-br from-blue-50 via-white to-cyan-50 flex items-center justify-center">
         <div className="text-center">
           <p className="text-gray-600">Task not found</p>
-          <Link to="/dashboard" className="mt-4 inline-block text-blue-600 hover:text-blue-700">
+          <Link
+            to="/dashboard"
+            className="mt-4 inline-block text-blue-600 hover:text-blue-700"
+          >
             Back to Dashboard
           </Link>
         </div>
@@ -169,7 +172,9 @@ const TaskDetail = () => {
                   <input
                     type="text"
                     value={editedTask.title}
-                    onChange={(e) => setEditedTask({ ...editedTask, title: e.target.value })}
+                    onChange={(e) =>
+                      setEditedTask({ ...editedTask, title: e.target.value })
+                    }
                     className="text-3xl font-bold bg-transparent border-b-2 border-blue-500 outline-none w-full"
                   />
                 ) : (
@@ -179,7 +184,9 @@ const TaskDetail = () => {
                     </h1>
                     <div className="flex items-center gap-2 text-sm">
                       <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
-                      <span className="text-gray-600 font-medium">Project:</span>
+                      <span className="text-gray-600 font-medium">
+                        Project:
+                      </span>
                       <span className="text-gray-700 bg-gray-100 px-3 py-1 rounded-full font-medium">
                         {projectName}
                       </span>
@@ -240,7 +247,9 @@ const TaskDetail = () => {
                   {isEditing ? (
                     <select
                       value={editedTask.status}
-                      onChange={(e) => setEditedTask({ ...editedTask, status: e.target.value })}
+                      onChange={(e) =>
+                        setEditedTask({ ...editedTask, status: e.target.value })
+                      }
                       className="mt-1 text-sm border border-gray-300 rounded-lg px-3 py-2 bg-white/80 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                       <option value="Todo">Todo</option>
@@ -248,7 +257,9 @@ const TaskDetail = () => {
                       <option value="Done">Done</option>
                     </select>
                   ) : (
-                    <span className={`inline-block px-3 py-1 rounded-full text-sm font-medium border ${getStatusColor(task.status)}`}>
+                    <span
+                      className={`inline-block px-3 py-1 rounded-full text-sm font-medium border ${getStatusColor(task.status)}`}
+                    >
                       {task.status}
                     </span>
                   )}
@@ -280,20 +291,31 @@ const TaskDetail = () => {
 
             {/* Description */}
             <div className="mb-8">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4">Description</h2>
+              <h2 className="text-xl font-semibold text-gray-900 mb-4">
+                Description
+              </h2>
               {isEditing ? (
                 <textarea
                   value={editedTask.description || ''}
-                  onChange={(e) => setEditedTask({ ...editedTask, description: e.target.value })}
+                  onChange={(e) =>
+                    setEditedTask({
+                      ...editedTask,
+                      description: e.target.value,
+                    })
+                  }
                   className="w-full h-32 p-4 border border-gray-300 rounded-lg bg-white/80 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
                   placeholder="Add a description..."
                 />
               ) : (
                 <div className="p-4 bg-gray-50 rounded-lg">
                   {task.description ? (
-                    <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">{task.description}</p>
+                    <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">
+                      {task.description}
+                    </p>
                   ) : (
-                    <p className="text-gray-500 italic">No description provided</p>
+                    <p className="text-gray-500 italic">
+                      No description provided
+                    </p>
                   )}
                 </div>
               )}
@@ -302,7 +324,9 @@ const TaskDetail = () => {
             {/* Project Info */}
             {task.project && (
               <div className="border-t pt-6">
-                <h2 className="text-xl font-semibold text-gray-900 mb-4">Project</h2>
+                <h2 className="text-xl font-semibold text-gray-900 mb-4">
+                  Project
+                </h2>
                 <div className="flex items-center gap-3 p-4 bg-blue-50 rounded-lg">
                   <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
                     <span className="text-white font-bold">
@@ -310,9 +334,13 @@ const TaskDetail = () => {
                     </span>
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900">{task.project.name}</p>
+                    <p className="font-medium text-gray-900">
+                      {task.project.name}
+                    </p>
                     {task.project.description && (
-                      <p className="text-sm text-gray-600">{task.project.description}</p>
+                      <p className="text-sm text-gray-600">
+                        {task.project.description}
+                      </p>
                     )}
                   </div>
                 </div>

@@ -12,7 +12,7 @@ export const authAPI = {
         `${API_BASE_URL}/auth/register`,
         userData,
         {
-          withCredentials: true, // This is crucial for sending cookies
+          withCredentials: true, //  for sending cookies
         }
       );
       toast.success('Registration successful!');
@@ -21,7 +21,6 @@ export const authAPI = {
       const errorMessage =
         error.response?.data?.message || 'Registration failed';
       toast.error(errorMessage);
-      // console.error('Register error:', error.response?.data || error.message);
       throw error;
     }
   },
@@ -152,7 +151,19 @@ export const tasksAPI = {
       throw error;
     }
   },
-
+  fetchTask: async (taskId) => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/tasks/${taskId}`, {
+        withCredentials: true,
+      });
+      return response;
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.message || 'Failed to create task';
+      toast.error(errorMessage);
+      throw error;
+    }
+  },
   create: async (projectId, taskData) => {
     try {
       const response = await axios.post(
@@ -168,7 +179,6 @@ export const tasksAPI = {
       const errorMessage =
         error.response?.data?.message || 'Failed to create task';
       toast.error(errorMessage);
-      // console.error('Create task error:', error.response?.data || error.message);
       throw error;
     }
   },
@@ -204,7 +214,6 @@ export const tasksAPI = {
       const errorMessage =
         error.response?.data?.message || 'Failed to delete task';
       toast.error(errorMessage);
-      // console.error('Delete task error:', error.response?.data || error.message);
       throw error;
     }
   },
