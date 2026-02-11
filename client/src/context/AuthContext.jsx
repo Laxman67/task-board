@@ -13,32 +13,14 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const getCookie = (name) => {
-      const value = `; ${document.cookie}`;
-      const parts = value.split(`; ${name}=`);
-      if (parts.length === 2) return parts.pop().split(';').shift();
-      return null;
-    };
-
-    const token = getCookie('token');
-    if (token) {
-      // You could add a verify token endpoint here
-      setUser({ token });
-    }
-    setLoading(false);
-  }, []);
+  const [loading, setLoading] = useState(false);
 
   const register = async (userData) => {
     try {
       setLoading(true);
       const response = await authAPI.register(userData);
-      const { token, user } = response.data.data;
+      const { token } = response.data.data;
 
-
-      document.cookie = `token=${token}; path=/; max-age=${import.meta.env.VITE_COOKIE_EXPIRE * 24 * 60 * 60}`; // 7 days
       setUser({ token });
 
       return { success: true };
@@ -54,10 +36,8 @@ export const AuthProvider = ({ children }) => {
       setLoading(true);
       const response = await authAPI.login(userData);
 
-      const { token, user } = response.data.data;
+      const user = response.data.data;
 
-
-      document.cookie = `token=${token}; path=/; max-age=${import.meta.env.VITE_COOKIE_EXPIRE * 24 * 60 * 60}`; // 7 days
       setUser(user);
 
       return { success: true };
@@ -68,9 +48,14 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const logout = () => {
-    document.cookie = 'token=; path=/; max-age=0';
-    setUser(null);
+  const logout = async () => {
+    try {
+      const response = await authAPI.logout();
+      console.log(response);
+
+      setUser(null);
+      // const response = await authAPI.
+    } catch (error) {}
   };
 
   const value = {
@@ -82,9 +67,5 @@ export const AuthProvider = ({ children }) => {
     isAuthenticated: !!user,
   };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

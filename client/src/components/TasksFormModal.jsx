@@ -1,15 +1,28 @@
-import React from 'react'
+import React from 'react';
 
-const TasksFormModal = ({ createTask, taskForm, setTaskForm, setShowTaskForm }) => {
+const TasksFormModal = ({
+  createTask,
+  taskForm,
+  setTaskForm,
+  setShowTaskForm,
+}) => {
   return (
     <>
-      <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50" onClick={() => setShowTaskForm(false)}>
-        <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl border border-white/20 p-8 w-full max-w-md transform transition-all" onClick={(e) => e.stopPropagation()}>
+      <div
+        className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50"
+        onClick={() => setShowTaskForm(false)}
+      >
+        <div
+          className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl border border-white/20 p-8 w-full max-w-md transform transition-all"
+          onClick={(e) => e.stopPropagation()}
+        >
           <div className="flex items-center gap-3 mb-6">
-            <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-full flex items-center justify-center">
+            <div className="w-12 h-12 bg-linear-to-r from-blue-600 to-cyan-600 rounded-full flex items-center justify-center">
               <div className="w-6 h-6 bg-white rounded-full"></div>
             </div>
-            <h3 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">Create New Task</h3>
+            <h3 className="text-xl font-bold bg-linear-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+              Create New Task
+            </h3>
           </div>
           <form onSubmit={createTask}>
             <div className="space-y-5">
@@ -22,7 +35,9 @@ const TasksFormModal = ({ createTask, taskForm, setTaskForm, setShowTaskForm }) 
                   required
                   maxLength="200"
                   value={taskForm.title}
-                  onChange={(e) => setTaskForm({ ...taskForm, title: e.target.value })}
+                  onChange={(e) =>
+                    setTaskForm({ ...taskForm, title: e.target.value })
+                  }
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white/80 backdrop-blur-sm transition-all duration-200"
                   placeholder="Enter task title"
                 />
@@ -32,9 +47,12 @@ const TasksFormModal = ({ createTask, taskForm, setTaskForm, setShowTaskForm }) 
                   Description
                 </label>
                 <textarea
+                  required
                   maxLength="1000"
                   value={taskForm.description}
-                  onChange={(e) => setTaskForm({ ...taskForm, description: e.target.value })}
+                  onChange={(e) =>
+                    setTaskForm({ ...taskForm, description: e.target.value })
+                  }
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white/80 backdrop-blur-sm transition-all duration-200 resize-none"
                   rows="3"
                   placeholder="Describe your task"
@@ -46,7 +64,9 @@ const TasksFormModal = ({ createTask, taskForm, setTaskForm, setShowTaskForm }) 
                 </label>
                 <select
                   value={taskForm.status}
-                  onChange={(e) => setTaskForm({ ...taskForm, status: e.target.value })}
+                  onChange={(e) =>
+                    setTaskForm({ ...taskForm, status: e.target.value })
+                  }
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white/80 backdrop-blur-sm transition-all duration-200"
                 >
                   <option value="Todo">Todo</option>
@@ -72,8 +92,9 @@ const TasksFormModal = ({ createTask, taskForm, setTaskForm, setShowTaskForm }) 
             </div>
           </form>
         </div>
-      </div></>
-  )
-}
+      </div>
+    </>
+  );
+};
 
-export default TasksFormModal
+export default TasksFormModal;

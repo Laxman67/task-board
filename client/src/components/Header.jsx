@@ -1,21 +1,22 @@
-import { LogOut, User } from 'lucide-react'
-import React, { useEffect, useState } from 'react'
+import { LogOut, User } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
 import { API_BASE_URL } from '../services/api';
 import axios from 'axios';
+
 const Header = ({ logout }) => {
   const [userData, setUserData] = useState(null);
 
   const fetchUserDetails = async () => {
     try {
       const response = await axios.get(`${API_BASE_URL}/auth/me`, {
-        withCredentials: true
+        withCredentials: true,
       });
 
       setUserData(response.data);
     } catch (error) {
       // console.error('Error fetching user details:', error);
     }
-  }
+  };
 
   useEffect(() => {
     fetchUserDetails();
@@ -27,7 +28,11 @@ const Header = ({ logout }) => {
         <div className="flex justify-between items-center py-4">
           <div className="flex items-center">
             <div className="bg-white rounded-lg p-2 mr-3 shadow-lg">
-              <img src="./TaskBoard_logo.png" alt='logo' className='w-60 bg-contain' />
+              <img
+                src="./TaskBoard_logo.png"
+                alt="logo"
+                className="w-60 bg-contain"
+              />
             </div>
             {/* <h1 className="text-2xl font-bold text-white">
               TaskBoard
@@ -60,7 +65,7 @@ const Header = ({ logout }) => {
         </div>
       </div>
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

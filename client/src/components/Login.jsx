@@ -8,8 +8,10 @@ const Login = ({ onToggle }) => {
     password: '',
   });
   const [showPassword, setShowPassword] = useState(false);
-  const { login, loading } = useAuth();
-  const navigate = useNavigate()
+  const { login, loading, user } = useAuth();
+  console.log(user);
+
+  const navigate = useNavigate();
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -18,13 +20,11 @@ const Login = ({ onToggle }) => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const res = await login(formData);
     if (res.success) {
-      navigate('/dashboard')
+      navigate('/dashboard');
     }
-
-
   };
 
   return (
@@ -53,10 +53,12 @@ const Login = ({ onToggle }) => {
           </div>
 
           <form className="space-y-6" onSubmit={handleSubmit}>
-
             <div className="space-y-5">
               <div>
-                <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-semibold text-gray-700 mb-2"
+                >
                   Email address
                 </label>
                 <div className="relative">
@@ -78,7 +80,10 @@ const Login = ({ onToggle }) => {
               </div>
 
               <div>
-                <label htmlFor="password" className="block text-sm font-semibold text-gray-700 mb-2">
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-semibold text-gray-700 mb-2"
+                >
                   Password
                 </label>
                 <div className="relative">
