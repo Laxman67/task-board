@@ -18,6 +18,7 @@ A modern, responsive task management application built with the MERN stack. Orga
 ## 🛠️ Tech Stack
 
 ### Frontend
+
 - **React 19** - Modern React with hooks
 - **Vite** - Fast development server and build tool
 - **Tailwind CSS** - Utility-first CSS framework
@@ -27,6 +28,7 @@ A modern, responsive task management application built with the MERN stack. Orga
 - **Lucide React** - Beautiful icons
 
 ### Backend
+
 - **Node.js** - JavaScript runtime
 - **Express.js** - Web framework
 - **MongoDB** - NoSQL database
@@ -118,6 +120,7 @@ npm run dev
 ```
 
 The application will be available at:
+
 - **Frontend**: http://localhost:5173
 - **Backend API**: http://localhost:5000
 
@@ -126,22 +129,24 @@ The application will be available at:
 For testing purposes, the application comes with two pre-created user accounts:
 
 ### User 1: John Doe
+
 ```json
 {
-    "firstname": "John",
-    "lastname": "Doe",
-    "email": "john89@example.com",
-    "password": "John@90"
+  "firstname": "John",
+  "lastname": "Doe",
+  "email": "john89@example.com",
+  "password": "John@90"
 }
 ```
 
 ### User 2: Mandeep Singh
+
 ```json
 {
-    "firstname": "Mandeep",
-    "lastname": "Singh",
-    "email": "MandeepS89@example.com",
-    "password": "Mandep@156"
+  "firstname": "Mandeep",
+  "lastname": "Singh",
+  "email": "MandeepS89@example.com",
+  "password": "Mandep@156"
 }
 ```
 
@@ -177,16 +182,19 @@ task-board/
 ## 🔧 Development Workflow
 
 ### 1. User Authentication Flow
+
 ```
 User Registration/Login → JWT Token Generation → Protected Route Access → Dashboard
 ```
 
 ### 2. Project Management Flow
+
 ```
 Dashboard → Create Project → Project List → View Project Tasks
 ```
 
 ### 3. Task Management Flow
+
 ```
 Select Project → Add Task → Update Status → Edit/Delete Task
 ```
@@ -194,16 +202,19 @@ Select Project → Add Task → Update Status → Edit/Delete Task
 ## 📊 API Endpoints
 
 ### Authentication
+
 - `POST /api/auth/register` - User registration
 - `POST /api/auth/login` - User login
 
 ### Projects
+
 - `GET /api/projects` - Get all user projects
 - `POST /api/projects` - Create new project
 - `PUT /api/projects/:id` - Update project
 - `DELETE /api/projects/:id` - Delete project
 
 ### Tasks
+
 - `GET /api/projects/:projectId/tasks` - Get all tasks for a project
 - `POST /api/projects/:projectId/tasks` - Create new task
 - `PUT /api/tasks/:id` - Update task
@@ -212,6 +223,7 @@ Select Project → Add Task → Update Status → Edit/Delete Task
 ## 🎯 Task Status Management
 
 Tasks can have one of three statuses:
+
 - **Todo** - New tasks that haven't been started
 - **In Progress** - Tasks currently being worked on
 - **Done** - Completed tasks
@@ -241,12 +253,14 @@ npm test
 ## 📦 Build for Production
 
 ### Frontend Build
+
 ```bash
 cd client
 npm run build
 ```
 
 ### Backend Production
+
 ```bash
 cd backend
 npm start
@@ -255,11 +269,13 @@ npm start
 ## 🚀 Deployment
 
 ### Frontend Deployment (Vercel/Netlify)
+
 1. Build the frontend: `npm run build`
 2. Deploy the `dist` folder to your hosting provider
 3. Set environment variables for API URL
 
 ### Backend Deployment (Heroku/Railway)
+
 1. Set environment variables in your hosting platform
 2. Deploy the backend directory
 3. Ensure MongoDB is accessible (Atlas recommended)
@@ -306,6 +322,7 @@ This project is licensed under the ISC License.
 ## 📞 Support
 
 For support and questions:
+
 - Create an issue in the repository
 - Check the [FRD.md](./FRD.md) for detailed requirements
 - Review the code comments for implementation details

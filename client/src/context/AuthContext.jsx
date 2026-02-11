@@ -54,7 +54,6 @@ export const AuthProvider = ({ children }) => {
       console.log(response);
 
       setUser(null);
-      // const response = await authAPI.
     } catch (error) {}
   };
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { projectsAPI, tasksAPI } from '../services/api';
-import { CheckCircle, Clock, Circle } from 'lucide-react';
+import { CheckCircle, Clock, Circle, ClipboardCheck } from 'lucide-react';
 import Header from './Header';
 import ProjectSidebar from './ProjectSidebar';
 import Tasks from './Tasks';
@@ -21,7 +21,11 @@ const Dashboard = () => {
 
   // Form states
   const [projectForm, setProjectForm] = useState({ name: '', description: '' });
-  const [taskForm, setTaskForm] = useState({ title: '', description: '', status: 'Todo' });
+  const [taskForm, setTaskForm] = useState({
+    title: '',
+    description: '',
+    status: 'Todo',
+  });
 
   useEffect(() => {
     fetchProjects();
@@ -83,7 +87,11 @@ const Dashboard = () => {
   };
 
   const deleteProject = async (project) => {
-    if (window.confirm(`Are you sure you want to delete "${project.name}"? This will also delete all tasks in this project.`)) {
+    if (
+      window.confirm(
+        `Are you sure you want to delete "${project.name}"? This will also delete all tasks in this project.`
+      )
+    ) {
       try {
         await projectsAPI.delete(project._id);
         if (selectedProject?._id === project._id) {
@@ -129,7 +137,6 @@ const Dashboard = () => {
       try {
         await tasksAPI.delete(task._id);
         fetchTasks(selectedProject._id);
-
       } catch (err) {
         // Error is already handled in API service with toast
       }
@@ -139,7 +146,7 @@ const Dashboard = () => {
   const getStatusIcon = (status) => {
     switch (status) {
       case 'Todo':
-        return <Circle className="h-5 w-5 text-blue-500 font-bold" />;
+        return <ClipboardCheck className="h-5 w-5 text-blue-500 font-bold" />;
       case 'In Progress':
         return <Clock className="h-5 w-5 text-amber-500 font-bold" />;
       case 'Done':
@@ -158,12 +165,11 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50">
+    <div className="min-h-screen bg-linear-to-br from-gray-50 to-blue-50">
       {/* Header */}
       <Header logout={logout} />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Projects Sidebar */}
           <ProjectSidebar
@@ -176,7 +182,14 @@ const Dashboard = () => {
           />
 
           {/* Tasks Area */}
-          <Tasks setShowTaskForm={setShowTaskForm} selectedProject={selectedProject} tasks={tasks} getStatusIcon={getStatusIcon} updateTaskStatus={updateTaskStatus} deleteTask={deleteTask} />
+          <Tasks
+            setShowTaskForm={setShowTaskForm}
+            selectedProject={selectedProject}
+            tasks={tasks}
+            getStatusIcon={getStatusIcon}
+            updateTaskStatus={updateTaskStatus}
+            deleteTask={deleteTask}
+          />
         </div>
       </main>
 
@@ -194,7 +207,12 @@ const Dashboard = () => {
 
       {/* Task Form Modal */}
       {showTaskForm && (
-        <TasksFormModal createTask={createTask} taskForm={taskForm} setTaskForm={setTaskForm} setShowTaskForm={setShowTaskForm} />
+        <TasksFormModal
+          createTask={createTask}
+          taskForm={taskForm}
+          setTaskForm={setTaskForm}
+          setShowTaskForm={setShowTaskForm}
+        />
       )}
     </div>
   );

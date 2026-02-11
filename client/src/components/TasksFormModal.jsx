@@ -78,7 +78,7 @@ const TasksFormModal = ({
             <div className="flex gap-3 mt-8">
               <button
                 type="submit"
-                className="flex-1 bg-gradient-to-r from-blue-600 to-cyan-600 text-white py-3 rounded-lg hover:from-blue-700 hover:to-cyan-700 transition-all duration-200 transform hover:scale-[1.02] font-semibold shadow-lg"
+                className="flex-1 bg-linear-to-r from-blue-600 to-cyan-600 text-white py-3 rounded-lg hover:from-blue-700 hover:to-cyan-700 transition-all duration-200 transform hover:scale-[1.02] font-semibold shadow-lg"
               >
                 Create Task
               </button>

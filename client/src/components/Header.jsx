@@ -23,7 +23,7 @@ const Header = ({ logout }) => {
   }, []);
 
   return (
-    <header className="bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 shadow-lg border-b border-blue-100">
+    <header className="bg-linear-to-r from-blue-600 via-blue-500 to-cyan-500 shadow-lg border-b border-blue-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           <div className="flex items-center">
