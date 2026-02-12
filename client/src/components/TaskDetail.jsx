@@ -55,7 +55,6 @@ const TaskDetail = () => {
       const { data } = response;
 
       if (data.success) {
-        toast.success('Task updated successfully');
         navigate(`/tasks/${taskId}`);
         setIsEditing(false);
         fetchTask();

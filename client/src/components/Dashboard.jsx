@@ -19,6 +19,9 @@ const Dashboard = () => {
   const [isEditingProject, setIsEditingProject] = useState(false);
   const [editingProjectId, setEditingProjectId] = useState(null);
 
+  // TODO
+
+  console.log(selectedProject);
   // Form states
   const [projectForm, setProjectForm] = useState({ name: '', description: '' });
   const [taskForm, setTaskForm] = useState({
@@ -33,6 +36,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (selectedProject) {
+      // Fetch tasks for the selected project
       fetchTasks(selectedProject._id);
     }
   }, [selectedProject]);
@@ -143,19 +147,6 @@ const Dashboard = () => {
     }
   };
 
-  const getStatusIcon = (status) => {
-    switch (status) {
-      case 'Todo':
-        return <ClipboardCheck className="h-5 w-5 text-blue-500 font-bold" />;
-      case 'In Progress':
-        return <Clock className="h-5 w-5 text-amber-500 font-bold" />;
-      case 'Done':
-        return <CheckCircle className="h-5 w-5 text-green-500 font-bold" />;
-      default:
-        return <Circle className="h-5 w-5 text-gray-400 font-bold" />;
-    }
-  };
-
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -186,7 +177,6 @@ const Dashboard = () => {
             setShowTaskForm={setShowTaskForm}
             selectedProject={selectedProject}
             tasks={tasks}
-            getStatusIcon={getStatusIcon}
             updateTaskStatus={updateTaskStatus}
             deleteTask={deleteTask}
           />

@@ -8,10 +8,11 @@ export const generateToken = (userId) => {
   });
 };
 
-export const register = async (req, res, next) => {
+export const register = async (req, res) => {
   try {
     const { value, error } = registerSchema.validate(req.body);
 
+    const { firstname, lastname, email, password } = value;
     if (error) {
       return res.status(400).json({
         success: false,
@@ -19,8 +20,6 @@ export const register = async (req, res, next) => {
         errors: error.details,
       });
     }
-
-    const { firstname, lastname, email, password } = value;
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -61,7 +60,7 @@ export const register = async (req, res, next) => {
   }
 };
 
-export const login = async (req, res, next) => {
+export const login = async (req, res) => {
   try {
     // TODO: Validate the request body
 
@@ -123,7 +122,7 @@ export const login = async (req, res, next) => {
   }
 };
 
-export const logout = async (req, res, next) => {
+export const logout = async (req, res) => {
   try {
     const token = req.cookies.token;
 
@@ -142,8 +141,6 @@ export const logout = async (req, res, next) => {
         });
     }
   } catch (error) {
-    // console.log(error);
-
     return res.status(500).json({
       success: false,
       message: 'Internal server error',

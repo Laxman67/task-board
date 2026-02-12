@@ -120,7 +120,7 @@ export const projectsAPI = {
       const response = await axios.delete(`${API_BASE_URL}/projects/${id}`, {
         withCredentials: true,
       });
-      toast.success('Project deleted successfully!');
+      toast.warn('Project deleted successfully!');
       return response;
     } catch (error) {
       const errorMessage =

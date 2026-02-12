@@ -7,12 +7,11 @@ import {
 } from 'lucide-react';
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import getStatusIcon from '../utils/getStatusIcon';
 const Tasks = ({
   setShowTaskForm,
   selectedProject,
   tasks,
-  getStatusIcon,
   updateTaskStatus,
   deleteTask,
 }) => {
@@ -23,7 +22,7 @@ const Tasks = ({
           <div className="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg border border-white/20 p-6">
             <div className="flex justify-between items-start mb-6">
               <div className="flex-1">
-                <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+                <h2 className="text-2xl font-bold bg-linear-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
                   {selectedProject.name}
                 </h2>
                 {selectedProject.description && (
@@ -33,7 +32,7 @@ const Tasks = ({
                 )}
 
                 <div className="grid grid-cols-3 gap-4 mt-6">
-                  <div className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl p-4 text-center border border-blue-100">
+                  <div className="bg-linear-to-r from-blue-50 to-cyan-50 rounded-xl p-4 text-center border border-blue-100">
                     <div className="text-3xl font-bold text-blue-600">
                       {tasks.length}
                     </div>
@@ -41,7 +40,7 @@ const Tasks = ({
                       Total Tasks
                     </div>
                   </div>
-                  <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-4 text-center border border-green-100">
+                  <div className="bg- linear-to-r from-green-50 to-emerald-50 rounded-xl p-4 text-center border border-green-100">
                     <div className="text-3xl font-bold text-green-600">
                       {tasks.filter((task) => task.status === 'Done').length}
                     </div>
@@ -49,7 +48,7 @@ const Tasks = ({
                       Completed
                     </div>
                   </div>
-                  <div className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-xl p-4 text-center border border-amber-100">
+                  <div className="bg-linear-to-r from-amber-50 to-orange-50 rounded-xl p-4 text-center border border-amber-100">
                     <div className="text-3xl font-bold text-amber-600">
                       {
                         tasks.filter((task) => task.status === 'In Progress')
@@ -65,7 +64,7 @@ const Tasks = ({
 
               <button
                 onClick={() => setShowTaskForm(true)}
-                className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-xl hover:from-blue-700 hover:to-cyan-700 transition-all duration-200 transform hover:scale-105 shadow-lg"
+                className="flex items-center gap-2 px-6 py-3 bg-linear-to-r from-blue-600 to-cyan-600 text-white rounded-xl hover:from-blue-700 hover:to-cyan-700 transition-all duration-200 transform hover:scale-105 shadow-lg"
               >
                 <Plus className="h-5 w-5" />
                 Add Task
@@ -121,7 +120,7 @@ const Tasks = ({
                                 : 'border-green-300 text-green-700 focus:ring-green-500'
                           }`}
                         >
-                          <option value="Todo" className="text-blue-700">
+                          <option value="Todo" className="text-blue-700 ">
                             🔵 Todo
                           </option>
                           <option
@@ -163,4 +162,4 @@ const Tasks = ({
   );
 };
 
-export default Tasks;
+export default React.memo(Tasks);
