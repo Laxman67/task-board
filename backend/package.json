@@ -19,6 +19,8 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
+    "@google/genai": "^1.41.0",
+    "@google/generative-ai": "^0.24.1",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
@@ -28,6 +30,7 @@
     "joi": "^18.0.2",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^7.5.0",
+    "openai": "^6.21.0",
     "winston": "^3.19.0"
   },
   "devDependencies": {

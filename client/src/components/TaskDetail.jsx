@@ -1,22 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import {
-  ArrowLeft,
-  Calendar,
-  User,
-  Tag,
-  Edit2,
-  Trash2,
-  Save,
-  X,
-} from 'lucide-react';
+import { ArrowLeft, Calendar, Tag, Edit2, Trash2, Save, X } from 'lucide-react';
 import { toast } from 'react-toastify';
 
-import axios from 'axios';
 import { tasksAPI } from '../services/api';
 
 const TaskDetail = () => {
-  const { taskId, projectId } = useParams();
+  const { taskId } = useParams();
   const navigate = useNavigate();
   const [task, setTask] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -33,10 +23,6 @@ const TaskDetail = () => {
   }, [taskId]);
 
   const fetchTask = async () => {
-    // TODO
-    {
-    }
-
     try {
       const response = await tasksAPI.fetchTask(taskId);
       const { data } = response;
@@ -101,9 +87,9 @@ const TaskDetail = () => {
   const getStatusColor = (status) => {
     switch (status) {
       case 'Todo':
-        return 'bg-gray-100 text-gray-700 border-gray-300';
-      case 'In Progress':
         return 'bg-blue-100 text-blue-700 border-blue-300';
+      case 'In Progress':
+        return 'bg-orange-100 text-orange-700 border-orange-300';
       case 'Done':
         return 'bg-green-100 text-green-700 border-green-300';
       default:

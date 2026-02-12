@@ -2,11 +2,17 @@ import mongoose from 'mongoose';
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017', {
-      dbName: "task-board"
-    });
+    const conn = await mongoose.connect(
+      process.env.MONGODB_URI || 'mongodb://localhost:27017',
+      {
+        dbName: 'task-board',
+      }
+    );
 
-    console.info(`MongoDB Connected: ${conn.connection.host}`);
+    console.info(
+      `MongoDB is Connected\nPORT: Running in mongodb://localhost:27017\nDBNAME: ${conn.connection.name}
+      `
+    );
   } catch (error) {
     console.error('Database connection error:', error);
     process.exit(1);
