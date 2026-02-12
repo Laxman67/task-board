@@ -32,7 +32,7 @@ const Tasks = ({
                 )}
 
                 <div className="grid grid-cols-3 gap-4 mt-6">
-                  <div className="bg-linear-to-r from-blue-50 to-cyan-50 rounded-xl p-4 text-center border border-blue-100">
+                  <div className="bg-linear-to-r from-blue-50 to-cyan-50 rounded-xl p-4 text-center border-2 border-blue-100">
                     <div className="text-3xl font-bold text-blue-600">
                       {tasks.length}
                     </div>
@@ -40,7 +40,7 @@ const Tasks = ({
                       Total Tasks
                     </div>
                   </div>
-                  <div className="bg- linear-to-r from-green-50 to-emerald-50 rounded-xl p-4 text-center border border-green-100">
+                  <div className="bg-linear-to-r from-green-50 to-emerald-50 rounded-xl p-4 text-center border-2 border-green-100">
                     <div className="text-3xl font-bold text-green-600">
                       {tasks.filter((task) => task.status === 'Done').length}
                     </div>
@@ -48,7 +48,7 @@ const Tasks = ({
                       Completed
                     </div>
                   </div>
-                  <div className="bg-linear-to-r from-amber-50 to-orange-50 rounded-xl p-4 text-center border border-amber-100">
+                  <div className="bg-linear-to-r from-amber-50 to-orange-50 rounded-xl p-4 text-center border-2 border-amber-100">
                     <div className="text-3xl font-bold text-amber-600">
                       {
                         tasks.filter((task) => task.status === 'In Progress')

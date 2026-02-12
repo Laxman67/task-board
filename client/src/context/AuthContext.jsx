@@ -3,6 +3,7 @@ import { authAPI } from '../services/api';
 
 const AuthContext = createContext();
 
+// Custom hook to use the AuthContext
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
